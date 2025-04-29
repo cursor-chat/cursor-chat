@@ -1,0 +1,29 @@
+{
+  "name": "@cursor-chat/core",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles/cursor-chat.css": "./dist/styles/cursor-chat.css"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "tsup": "^8.4.0"
+  }
+}
