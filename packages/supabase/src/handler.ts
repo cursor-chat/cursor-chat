@@ -14,14 +14,19 @@ export const createSupabaseHandler: (
           if (userId !== payload.data.id) {
             handleCursor("change", payload.data.id, payload.data);
           }
+          options.onCursorPositionChanged?.(payload.data);
         })
         .subscribe();
     },
     onCursorPositionChanged: async (data) => {
+      let sendData = data;
+      if (options.handleCursorPositionBeforeSend) {
+        sendData = options.handleCursorPositionBeforeSend(sendData);
+      }
       channel.send({
         type: "broadcast",
         event: "cursor-pos",
-        data,
+        data: sendData,
       });
     },
   };

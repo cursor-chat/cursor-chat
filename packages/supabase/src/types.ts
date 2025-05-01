@@ -12,4 +12,8 @@ export type SupabaseApp = {
   roomId: string;
   client: SupabaseClient;
   userId: string;
+  onCursorPositionChanged?: (data: any) => void;
+  handleCursorPositionBeforeSend?: (
+    data: CursorChangeEvent
+  ) => CursorChangeEvent;
 };

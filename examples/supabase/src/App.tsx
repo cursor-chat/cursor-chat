@@ -12,6 +12,7 @@ const supabase = createClient(
 
 function App() {
   const [user, setUser] = useState<User>();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const init = async () => {
@@ -30,7 +31,11 @@ function App() {
   }, []);
 
   if (!user) {
-    return <Auth supabaseClient={supabase} providers={[]} />;
+    return (
+      <div className="App">
+        <Auth supabaseClient={supabase} providers={[]} />
+      </div>
+    );
   }
 
   return (
@@ -40,6 +45,17 @@ function App() {
           client: supabase,
           roomId: "myRoom",
           userId: user.id,
+          handleCursorPositionBeforeSend: (data) => {
+            return {
+              ...data,
+              meta: {
+                message: `Hello from ${user.email}`,
+              },
+            };
+          },
+          onCursorPositionChanged: (data) => {
+            console.log("Cursor position changed", data);
+          },
         }}
         userName={user.email}
         style={{
@@ -47,7 +63,8 @@ function App() {
           padding: "2rem",
         }}
       >
-        <button onClick={() => console.log("Clicked")}>Click me</button>
+        <button onClick={() => setCount(count + 1)}>Click me</button>
+        <p>Count: {count}</p>
       </CursorChat>
     </div>
   );

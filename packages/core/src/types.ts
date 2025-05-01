@@ -10,6 +10,7 @@ export type CursorData = {
   ratioY: number;
   userName?: string;
   comment?: string;
+  meta?: Record<string, any>;
 };
 
 export type CursorChangeEvent = Omit<CursorData, "offsetX" | "offsetY"> & {
